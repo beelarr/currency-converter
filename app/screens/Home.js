@@ -35,7 +35,8 @@ export default class Home extends Component {
 
     handleOptionsPress = () => {
         console.log('Handle Options Press');
-    }
+    };
+
     render() {
         return (
             <Container>
