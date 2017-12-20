@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import {
     ScrollView,
     StatusBar,
@@ -16,6 +16,11 @@ const ICON_SIZE = 23;
 
 
 export default class Options extends Component {
+
+    static PropTypes = {
+        navigation: PropTypes.object
+    };
+
     handleThemePress = () => console.log('Theme Press');
     handleSitePress = () => console.log('Site Press');
 
