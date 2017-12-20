@@ -27,6 +27,7 @@ export default class Themes extends Component {
                     onPress={() => this.handleThemePress(styles.$blue)}
                     selected
                     checkmark={false}
+                    iconBackground={styles.$blue}
                 />
                 <Separator/>
                 <ListItem
@@ -34,6 +35,7 @@ export default class Themes extends Component {
                     onPress={() => this.handleThemePress(styles.$orange)}
                     selected
                     checkmark={false}
+                    iconBackground={styles.$orange}
                 />
                 <Separator/>
                 <ListItem
@@ -41,6 +43,7 @@ export default class Themes extends Component {
                     onPress={() => this.handleThemePress(styles.$green)}
                     selected
                     checkmark={false}
+                    iconBackground={styles.$green}
                 />
                 <Separator/>
                 <ListItem
@@ -48,6 +51,7 @@ export default class Themes extends Component {
                     onPress={() => this.handleThemePress(styles.$purple)}
                     selected
                     checkmark={false}
+                    iconBackground={styles.$purple}
                 />
                 <Separator/>
             </ScrollView>
