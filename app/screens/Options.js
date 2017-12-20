@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {
     ScrollView,
     StatusBar,
-    Platform
+    Platform,
+    Linking
 
 } from 'react-native';
 
@@ -24,7 +25,11 @@ export default class Options extends Component {
     handleThemePress = () => {
         this.props.navigation.navigate('Themes')
     };
-    handleSitePress = () => console.log('Site Press');
+    handleSitePress = () => {
+        Linking.openURL('http://fixer.io')
+            .catch((e)=> alert(e.message))
+    };
+
 
     render() {
         return (
