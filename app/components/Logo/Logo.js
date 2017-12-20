@@ -1,29 +1,66 @@
 import React, {Component} from 'react';
-
+import PropTypes from 'prop-types';
 import {
     View,
-    Image,
-    ImageBackground,
+    Platform,
     Text,
-    Keyboard
+    Keyboard,
+    Animated,
+    StyleSheet
 } from 'react-native';
 
 import styles from './styles';
 
-export default class Logo extends Component {
+const ANIMATION_DURATION = 250;
 
+export default class Logo extends Component {
+    static propTypes = {
+        tintColor: PropTypes.string,
+    };
+
+    state = {
+        containerImageWidth: new Animated.Value(styles.$largeContainerSize),
+        imageWidth: new Animated.Value(styles.$largeImageSize),
+
+    };
 
     keyboardShow = () => {
-        console.log('Keyboard did show');
-    }
+        Animated.parallel([
+            Animated.timing(this.state.containerImageWidth, {
+                toValue: styles.$smallContainerSize,
+                duration: ANIMATION_DURATION
+            }),
+
+            Animated.timing(this.state.imageWidth, {
+                toValue: styles.$smallImageSize,
+                duration: ANIMATION_DURATION
+            }),
+
+        ]).start();
+    };
 
     keyboardHide = () => {
-        console.log('Keyboard did Hide');
-    }
+        Animated.parallel([
+            Animated.timing(this.state.containerImageWidth, {
+                toValue: styles.$largeContainerSize,
+                duration: ANIMATION_DURATION
+            }),
+            Animated.timing(this.state.imageWidth, {
+                toValue: styles.$largeImageSize,
+                duration: ANIMATION_DURATION
+            }),
+        ]).start();
+    };
 
     componentDidMount() {
-        this.keyboardShowListner = Keyboard.addListener('keyboardWillShow', this.keyboardShow);
-        this.keyboardHideListner = Keyboard.addListener('keyboardWillHide', this.keyboardHide);
+        let showListner = 'keyboardWillShow';
+        let hideListner = 'keyboardWillHide';
+        if (Platform.OS === 'android') {
+            showListner = 'keyboardDidShow';
+            hideListner = 'keyboardDidHide';
+        }
+        this.keyboardShowListner = Keyboard.addListener(showListner, this.keyboardShow);
+        this.keyboardHideListner = Keyboard.addListener(hideListner, this.keyboardHide);
 
     }
 
@@ -33,17 +70,30 @@ export default class Logo extends Component {
     }
 
     render() {
+
+        const containerImageStyle = [
+            styles.containerImage,
+            { width: this.state.containerImageWidth, height: this.state.containerImageWidth}
+        ];
+
+        const imageStyle = [
+            styles.logo,
+            { width: this.state.imageWidth },
+            this.props.tintColor ? { tintColor: this.props.tintColor } : null,
+        ];
+
         return (
             <View style={styles.container}>
-                <ImageBackground
-                    resizeMode="contain"
-                    style={styles.containerImage}
-                    source={require('./images/background.png')}>
-                    <Image
+                <Animated.View style={containerImageStyle}>
+                    <Animated.Image
                         resizeMode="contain"
-                        style={styles.logo}
-                        source={require('./images/logo.png')} />
-                </ImageBackground>
+                        style={[StyleSheet.absoluteFill, containerImageStyle]}
+                        source={require('./images/background.png')}/>
+                        <Animated.Image
+                            resizeMode="contain"
+                            style={imageStyle}
+                            source={require('./images/logo.png')} />
+                </Animated.View>
                 <Text style={styles.text}>
                     Currency Converter
                 </Text>

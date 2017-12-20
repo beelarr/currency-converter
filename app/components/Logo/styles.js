@@ -24,6 +24,7 @@ export default EStyleSheet.create({
     },
     logo: {
         width: '$largeImageSize',
+        tintColor: '$primaryBlue'
 
     },
     text: {
