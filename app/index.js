@@ -10,6 +10,7 @@ EStyleSheet.build({
     $border: '#E2E2E2',
     $inputText: '#797979',
     $lightgrey: '#F0F0F0',
+    $darkText: '#343434'
 
 });
 
