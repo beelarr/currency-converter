@@ -21,7 +21,9 @@ export default class Options extends Component {
         navigation: PropTypes.object
     };
 
-    handleThemePress = () => console.log('Theme Press');
+    handleThemePress = () => {
+        this.props.navigation.navigate('Themes')
+    };
     handleSitePress = () => console.log('Site Press');
 
     render() {
