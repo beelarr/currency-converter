@@ -7,6 +7,7 @@ import {
     Linking
 
 } from 'react-native';
+import { connectAlert } from '../components/Alert';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -16,10 +17,11 @@ const ICON_COLOR = '#868686';
 const ICON_SIZE = 23;
 
 
-export default class Options extends Component {
+class Options extends Component {
 
     static PropTypes = {
-        navigation: PropTypes.object
+        navigation: PropTypes.object,
+        alertWithType: PropTypes.func
     };
 
     handleThemePress = () => {
@@ -27,7 +29,7 @@ export default class Options extends Component {
     };
     handleSitePress = () => {
         Linking.openURL('http://fixer.io')
-            .catch((e)=> alert(e.message))
+            .catch(()=> this.props.alertWithType('error', 'Sorry!', 'Fixer.io cant be opened.'))
     };
 
 
@@ -63,3 +65,4 @@ export default class Options extends Component {
         )
     }
 }
+export default connectAlert(Options);
