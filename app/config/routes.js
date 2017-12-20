@@ -31,6 +31,14 @@ const HomeStack = StackNavigator({
 
     );
 
+const CurrencyListStack = StackNavigator({
+    CurrencyList: {
+        screen: CurrencyList,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: navigation.state.params.title
+        })
+    },
+});
 
 
 export default StackNavigator({
@@ -38,10 +46,7 @@ export default StackNavigator({
         screen: HomeStack
     },
     CurrencyList: {
-        screen: CurrencyList,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: navigation.state.params.title
-        })
+        screen: CurrencyListStack,
     },
     }, {
         mode: 'modal',
