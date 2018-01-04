@@ -7,7 +7,7 @@ import {
     Linking
 
 } from 'react-native';
-import { connectAlert } from '../components/Alert';
+// import { connectAlert } from '../components/Alert';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -21,7 +21,7 @@ class Options extends Component {
 
     static PropTypes = {
         navigation: PropTypes.object,
-        alertWithType: PropTypes.func
+        // alertWithType: PropTypes.func
     };
 
     handleThemePress = () => {
@@ -29,7 +29,7 @@ class Options extends Component {
     };
     handleSitePress = () => {
         Linking.openURL('http://fixer.io')
-            .catch(()=> this.props.alertWithType('error', 'Sorry!', 'Fixer.io cant be opened.'))
+            .catch(()=> alert('Sorry!', 'Fixer.io cant be opened.'))
     };
 
 
@@ -65,4 +65,4 @@ class Options extends Component {
         )
     }
 }
-export default connectAlert(Options);
+export default Options;

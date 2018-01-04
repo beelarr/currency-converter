@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StatusBar, KeyboardAvoidingView } from 'react-native';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 
 import { Container } from '../components/Container';
 import { Logo } from '../components/Logo';
@@ -18,8 +18,8 @@ const TEMP_CONVERSION_DATE = new Date();
 
 export default class Home extends Component {
 
-    static PropTypes = {
-        navigation: PropTypes.object
+    static propTypes = {
+        navigation: propTypes.object
     };
 
     handlePressBaseCurrency = () => {
