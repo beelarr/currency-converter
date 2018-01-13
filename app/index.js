@@ -22,4 +22,4 @@ EStyleSheet.build({
 
 });
 
-export default () =>  <AlertProvider> <Navigator /> </AlertProvider> ;
+export default () => <AlertProvider><Navigator /></AlertProvider>;
