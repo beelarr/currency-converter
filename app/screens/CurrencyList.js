@@ -30,6 +30,10 @@ class CurrencyList extends Component {
     };
     
     render() {
+        let comparisonOfCurrency = this.props.baseCurrency;
+        if (this.props.navigation.state.params.type === 'quote') {
+            comparisonOfCurrency = this.props.quoteCurrency
+        }
         return (
             <View style={{ flex: 1 }}>
                 <StatusBar barStyle="default" transclucent={false}/>
@@ -38,7 +42,7 @@ class CurrencyList extends Component {
                     renderItem={ ({ item }) => (
                         <ListItem
                             text={item}
-                            selected={item === TEMP_CURRENT_CURRENCY}
+                            selected={item === comparisonOfCurrency}
                             onPress={() => this.handlePress(item)}
                         />
                     )}
@@ -50,4 +54,12 @@ class CurrencyList extends Component {
     }
 };
 
-export default connect()(CurrencyList);
+const mapStateToProps = state => {
+    return {
+        baseCurrency: state.currencies.baseCurrency,
+        quoteCurrency: state.currencies.quoteCurrency,
+
+    }
+};
+
+export default connect(mapStateToProps)(CurrencyList);
