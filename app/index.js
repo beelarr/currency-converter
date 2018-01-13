@@ -5,6 +5,9 @@ import Navigator from './config/routes';
 
 import { AlertProvider } from './components/Alert';
 
+import { Provider } from 'react-redux';
+import store from './config/store';
+
 
 EStyleSheet.build({
     $primaryBlue: '#4F6D7A',
@@ -23,4 +26,11 @@ EStyleSheet.build({
 
 });
 
-export default () => <AlertProvider><Navigator /></AlertProvider>;
+export default () => (
+    <Provider store={store}>
+        <AlertProvider>
+            <Navigator />
+        </AlertProvider>
+    </Provider>
+
+);

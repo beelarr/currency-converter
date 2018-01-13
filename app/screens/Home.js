@@ -10,6 +10,7 @@ import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
 
 import { swapCurrency, changeCurrencyAmount } from "../actions/currencies"
+import { connect } from 'react-redux';
 
 const TEMP_BASE_CURRENCY = 'USD';
 const TEMP_QUOTE_CURRENCY = 'GBP';
@@ -18,10 +19,11 @@ const TEMP_QUOTE_PRICE = '79.74';
 const TEMP_CONVERSION_RATE = 0.7974;
 const TEMP_CONVERSION_DATE = new Date();
 
-export default class Home extends Component {
+class Home extends Component {
 
     static propTypes = {
-        navigation: propTypes.object
+        navigation: propTypes.object,
+        dispatch: propTypes.func,
     };
 
     handlePressBaseCurrency = () => {
@@ -36,13 +38,11 @@ export default class Home extends Component {
     };
 
     handleChangeText = amount => {
-        // TODO: Wire up dispatch
-        console.log(changeCurrencyAmount(amount));
+        this.props.dispatch(changeCurrencyAmount(amount));
     };
 
     handleSwapCurrency = () => {
-        // TODO: Wire up with this.props.dispatch
-        console.log(swapCurrency());
+        this.props.dispatch(swapCurrency());
 
     };
 
@@ -87,3 +87,5 @@ export default class Home extends Component {
         )
     }
 };
+
+export default connect()(Home);
