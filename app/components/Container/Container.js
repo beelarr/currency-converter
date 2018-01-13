@@ -7,7 +7,8 @@ import styles from './styles';
 const Container = ({ children, backgroundColor }) => {
     const containerStyles = [styles.container];
     if (backgroundColor) {
-        containerStyles.push({backgroundColor})
+        containerStyles.push({backgroundColor});
+        console.log('background color', containerStyles );
     }
     return (
         <View style={containerStyles}>

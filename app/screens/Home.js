@@ -73,12 +73,15 @@ class Home extends Component {
                         defaultValue={this.props.amount.toString()}
                         keyboardType="numeric"
                         onChangeText={this.handleChangeText}
+                        textColor={this.props.primaryColor}
                     />
                     <InputWithButton
                         buttonText={this.props.quoteCurrency}
                         onPress={this.handlePressQuoteCurrency}
                         editable={false}
                         value={quotePrice}
+                        textColor={this.props.primaryColor}
+
                     />
                     <LastConverted
                         base={this.props.baseCurrency}
