@@ -12,8 +12,6 @@ import { Header } from '../components/Header';
 import { swapCurrency, changeCurrencyAmount } from "../actions/currencies"
 import { connect } from 'react-redux';
 
-const TEMP_CONVERSION_RATE = 0.7974;
-const TEMP_CONVERSION_DATE = new Date();
 
 class Home extends Component {
 
@@ -24,6 +22,9 @@ class Home extends Component {
         quoteCurrency: propTypes.string,
         amount: propTypes.number,
         conversionRate: propTypes.number,
+        isFetching: propTypes.bool,
+        conversionDate: propTypes.object,
+
     };
 
     handlePressBaseCurrency = () => {
@@ -52,8 +53,12 @@ class Home extends Component {
     };
 
     render() {
-
         let quotePrice = (this.props.amount * this.props.conversionRate).toFixed(2);
+
+        if (this.props.isFetching) {
+            quotePrice = '. . .'
+        }
+
 
         return (
             <Container>
@@ -77,8 +82,8 @@ class Home extends Component {
                     <LastConverted
                         base={this.props.baseCurrency}
                         quote={this.props.quoteCurrency}
-                        date={TEMP_CONVERSION_DATE}
-                        conversionRate={TEMP_CONVERSION_RATE}
+                        date={this.props.conversionDate}
+                        conversionRate={this.props.conversionRate}
                     />
                     <ClearButton
                         text='Reverse Currencies'
@@ -102,6 +107,8 @@ const mapStateToProps = state => {
         quoteCurrency,
         amount: state.currencies.amount,
         conversionRate: rates[quoteCurrency] || 0,
+        isFetching: conversionSelector.isFetching,
+        conversionDate: conversionSelector.date ? new Date(conversionSelector.date) : new Date()
 
     };
 };
