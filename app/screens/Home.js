@@ -24,6 +24,7 @@ class Home extends Component {
         conversionRate: propTypes.number,
         isFetching: propTypes.bool,
         conversionDate: propTypes.object,
+        primaryColor: propTypes.string,
 
     };
 
@@ -61,11 +62,11 @@ class Home extends Component {
 
 
         return (
-            <Container>
+            <Container backgroundColor={this.props.primaryColor}>
                 <StatusBar translucent={false} barStyle="light-content"/>
                 <Header onPress={this.handleOptionsPress} />
                 <KeyboardAvoidingView behavior="padding" >
-                    <Logo />
+                    <Logo tintColor={this.props.primaryColor}/>
                     <InputWithButton
                         buttonText={this.props.baseCurrency}
                         onPress={this.handlePressBaseCurrency}
@@ -108,7 +109,8 @@ const mapStateToProps = state => {
         amount: state.currencies.amount,
         conversionRate: rates[quoteCurrency] || 0,
         isFetching: conversionSelector.isFetching,
-        conversionDate: conversionSelector.date ? new Date(conversionSelector.date) : new Date()
+        conversionDate: conversionSelector.date ? new Date(conversionSelector.date) : new Date(),
+        primaryColor: state.themes.primaryColor
 
     };
 };

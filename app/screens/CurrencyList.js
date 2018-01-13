@@ -28,7 +28,7 @@ class CurrencyList extends Component {
 
         this.props.navigation.goBack(null);
     };
-    
+
     render() {
         let comparisonOfCurrency = this.props.baseCurrency;
         if (this.props.navigation.state.params.type === 'quote') {
@@ -44,6 +44,7 @@ class CurrencyList extends Component {
                             text={item}
                             selected={item === comparisonOfCurrency}
                             onPress={() => this.handlePress(item)}
+                            iconBackground={this.props.primaryColor}
                         />
                     )}
                     keyExtractor={item => item}
@@ -58,7 +59,7 @@ const mapStateToProps = state => {
     return {
         baseCurrency: state.currencies.baseCurrency,
         quoteCurrency: state.currencies.quoteCurrency,
-
+        primaryColor: state.themes.primaryColor,
     }
 };
 
