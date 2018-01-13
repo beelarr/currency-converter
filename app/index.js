@@ -5,6 +5,8 @@ import Navigator from './config/routes';
 
 import { AlertProvider } from './components/Alert';
 
+import './reducers'
+
 EStyleSheet.build({
     $primaryBlue: '#4F6D7A',
     $primaryOrange:'#D57A66',
