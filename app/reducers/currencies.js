@@ -1,7 +1,7 @@
-import { SWAP_CURRENCY, CHANGE_CURRENCY_AMOUNT, swapCurrency, changeCurrencyAmount } from "../actions/currencies";
+import { SWAP_CURRENCY, CHANGE_CURRENCY_AMOUNT } from "../actions/currencies";
 
 
-const initalState = {
+const initialState = {
     baseCurrency: 'USD',
     quoteCurrency: 'GDP',
     amount: 100,
@@ -9,7 +9,7 @@ const initalState = {
 
 };
 
-const reducer = (state = initalState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case CHANGE_CURRENCY_AMOUNT:
             return {
@@ -26,10 +26,5 @@ const reducer = (state = initalState, action) => {
             return state;
     }
 };
-
-console.log('initial state', initalState);
-console.log('swapCurrency', reducer(initalState, swapCurrency()));
-console.log('changeCurrencyAmount', reducer(initalState, changeCurrencyAmount('222')));
-
 
 export default reducer;
