@@ -13,7 +13,9 @@ const TEMP_CURRENT_CURRENCY = 'CAD';
 
 export default class CurrencyList extends Component {
 
-    handlePress = () => console.log('Row Pressed');
+    handlePress = () => {
+        this.props.navigation.goBack(null);
+    };
     
     render() {
         return (
