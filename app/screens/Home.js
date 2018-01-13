@@ -12,8 +12,6 @@ import { Header } from '../components/Header';
 import { swapCurrency, changeCurrencyAmount } from "../actions/currencies"
 import { connect } from 'react-redux';
 
-const TEMP_BASE_PRICE = '100';
-const TEMP_QUOTE_PRICE = '79.74';
 const TEMP_CONVERSION_RATE = 0.7974;
 const TEMP_CONVERSION_DATE = new Date();
 
@@ -23,7 +21,9 @@ class Home extends Component {
         navigation: propTypes.object,
         dispatch: propTypes.func,
         baseCurrency: propTypes.string,
-        quoteCurrency: propTypes.string
+        quoteCurrency: propTypes.string,
+        amount: propTypes.number,
+        conversionRate: propTypes.number,
     };
 
     handlePressBaseCurrency = () => {
@@ -52,6 +52,9 @@ class Home extends Component {
     };
 
     render() {
+
+        let quotePrice = (this.props.amount * this.props.conversionRate).toFixed(2);
+
         return (
             <Container>
                 <StatusBar translucent={false} barStyle="light-content"/>
@@ -61,7 +64,7 @@ class Home extends Component {
                     <InputWithButton
                         buttonText={this.props.baseCurrency}
                         onPress={this.handlePressBaseCurrency}
-                        defaultValue={TEMP_BASE_PRICE}
+                        defaultValue={this.props.amount.toString()}
                         keyboardType="numeric"
                         onChangeText={this.handleChangeText}
                     />
@@ -69,7 +72,7 @@ class Home extends Component {
                         buttonText={this.props.quoteCurrency}
                         onPress={this.handlePressQuoteCurrency}
                         editable={false}
-                        value={TEMP_QUOTE_PRICE}
+                        value={quotePrice}
                     />
                     <LastConverted
                         base={this.props.baseCurrency}
@@ -91,10 +94,15 @@ class Home extends Component {
 const mapStateToProps = state => {
     const baseCurrency = state.currencies.baseCurrency;
     const quoteCurrency = state.currencies.quoteCurrency;
+    const conversionSelector = state.currencies.conversions[baseCurrency] || {};
+    const rates = conversionSelector.rates || {};
 
     return {
         baseCurrency,
-        quoteCurrency
+        quoteCurrency,
+        amount: state.currencies.amount,
+        conversionRate: rates[quoteCurrency] || 0,
+
     };
 };
 
