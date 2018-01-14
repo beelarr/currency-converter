@@ -5,6 +5,12 @@ import Navigator from './config/routes';
 
 import { AlertProvider } from './components/Alert';
 
+import { Provider, connect } from 'react-redux';
+import store from './config/store';
+
+import { addNavigationHelpers } from 'react-navigation';
+
+
 EStyleSheet.build({
     $primaryBlue: '#4F6D7A',
     $primaryOrange:'#D57A66',
@@ -22,4 +28,29 @@ EStyleSheet.build({
 
 });
 
-export default () => <AlertProvider><Navigator /></AlertProvider>;
+
+
+const App = ({ dispatch, nav }) => (
+
+    <Navigator
+        navigation={addNavigationHelpers({
+            dispatch,
+            state: nav,
+        })}
+    />
+);
+
+const mapStateToProps = state => ({
+    nav: state.nav
+});
+
+const AppWithNavigation = connect(mapStateToProps)(App);
+
+export default () => (
+    <Provider store={store}>
+        <AlertProvider>
+            <AppWithNavigation />
+        </AlertProvider>
+    </Provider>
+
+);
