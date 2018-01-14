@@ -9,7 +9,7 @@ import { ClearButton } from '../components/Buttons';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
 
-import { swapCurrency, changeCurrencyAmount, GET_INITIAL_CONVERSION } from "../actions/currencies"
+import { swapCurrency, changeCurrencyAmount, getInitalConversion } from "../actions/currencies"
 import { connect } from 'react-redux';
 
 
@@ -29,7 +29,7 @@ class Home extends Component {
     };
 
     componentWillMount() {
-        this.props.dispatch(GET_INITIAL_CONVERSION());
+        this.props.dispatch(getInitalConversion());
     }
 
     handlePressBaseCurrency = () => {
