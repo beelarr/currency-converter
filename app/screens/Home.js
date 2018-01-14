@@ -8,8 +8,9 @@ import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Buttons';
 import { LastConverted } from '../components/Text';
 import { Header } from '../components/Header';
+import { connectAlert } from '../components/Alert';
 
-import { swapCurrency, changeCurrencyAmount } from "../actions/currencies"
+import { swapCurrency, changeCurrencyAmount, getInitalConversion } from "../actions/currencies"
 import { connect } from 'react-redux';
 
 
@@ -25,8 +26,20 @@ class Home extends Component {
         isFetching: propTypes.bool,
         conversionDate: propTypes.object,
         primaryColor: propTypes.string,
+        alertWithType: propTypes.func,
+        currencyError: propTypes.string,
 
     };
+
+    componentWillMount() {
+        this.props.dispatch(getInitalConversion());
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.currencyError && nextProps.currencyError !== this.props.currencyError) {
+            this.props.alertWithType('error', "😵 Well that didn't work 😵", nextProps.currencyError )
+        }
+    }
 
     handlePressBaseCurrency = () => {
         console.log('Pressed Base');
@@ -113,10 +126,12 @@ const mapStateToProps = state => {
         conversionRate: rates[quoteCurrency] || 0,
         isFetching: conversionSelector.isFetching,
         conversionDate: conversionSelector.date ? new Date(conversionSelector.date) : new Date(),
-        primaryColor: state.themes.primaryColor
+        primaryColor: state.themes.primaryColor,
+        currencyError: state.currencies.error,
+
 
     };
 };
 
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(connectAlert(Home));
